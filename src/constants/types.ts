@@ -20,6 +20,7 @@ export interface SocialLink {
   url: string;
   icon: IconType; // from react-icons
   color: string;
+  animation : string;
 }
 
 // Navigation Link
@@ -41,6 +42,7 @@ export interface Skills {
   frontend: Skill[];
   backend: Skill[];
   tools: Skill[];
+  languages: Skill[];
 }
 
 // Project
@@ -61,6 +63,7 @@ export interface Education {
   institution: string;
   year: string;
   description: string;
+  cgpa?: string;
 }
 
 // Experience
@@ -76,4 +79,30 @@ export interface OrbitIcon {
   icon: IconType;
   color: string;
   delay: number;
+}
+
+// All Pojects type
+export interface AllProjects {
+  id: number;
+  title: string;
+  subtitle: string;
+  description: string;
+  image: string;
+  tech: string[];
+  liveUrl: string;
+  githubUrl: string;
+  featured: boolean;
+}
+
+// Certificate type
+export interface Certificate {
+  id: number;
+  title: string;
+  issuer: string;
+  date: string;
+  description: string;
+  image: string;
+  credentialUrl: string;
+  skills?: string[];
+  featured: boolean;
 }

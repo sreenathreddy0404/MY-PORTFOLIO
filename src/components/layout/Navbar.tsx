@@ -5,12 +5,16 @@ import { FiSun, FiMoon } from 'react-icons/fi';
 import { navLinks } from '@/constants/data';
 import { useTheme } from '@/hooks/useTheme';
 import { useScrollProgress } from '@/hooks/useScrollProgress';
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
   const { progress, activeSection } = useScrollProgress();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const isHome = location.pathname === "/";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,6 +31,18 @@ const Navbar = () => {
       // “Scroll the page until this element becomes visible, and do it with a smooth animation.”
     }
     setIsMobileOpen(false);
+  };
+
+  const handleNavClick = (e: React.MouseEvent, sectionId: string) => {
+    e.preventDefault();
+
+    if (isHome) {
+      // Already on home page → just scroll
+      scrollToSection(sectionId);
+    } else {
+      // Navigate to home and pass the section as state (or hash)
+      navigate("/", { state: { scrollTo: sectionId } });
+    }
   };
 
   return (
@@ -51,7 +67,7 @@ const Navbar = () => {
         <nav className="container mx-auto px-6 flex items-center justify-between">
           {/* Logo */}
           <motion.a
-            href="#home"
+            href="/"
             onClick={(e) => {
               e.preventDefault();
               scrollToSection('#home');
@@ -68,11 +84,7 @@ const Navbar = () => {
             {navLinks.map((link:{name:string,href:string}) => (
               <motion.a
                 key={link.name}
-                href={link.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection(link.href);
-                }}
+                onClick={(e) => handleNavClick(e, link.href)}
                 className={`nav-link ${activeSection === link.href.slice(1) ? 'active' : ''}`}
                 whileHover={{ y: -2 }}
                 whileTap={{ y: 0 }}
@@ -80,6 +92,15 @@ const Navbar = () => {
                 {link.name}
               </motion.a>
             ))}
+            <motion.a
+                href="certificates"
+                className={`nav-link`}
+                whileHover={{ y: -2 }}
+                whileTap={{ y: 0 }}
+              >
+                certificates
+            </motion.a>
+
           </div>
 
           {/* Theme Toggle & Mobile Menu */}

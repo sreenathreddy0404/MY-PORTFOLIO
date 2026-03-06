@@ -5,7 +5,7 @@ import { FiBookOpen, FiBriefcase } from 'react-icons/fi';
 
 const AboutSection = () => {
   return (
-    <section id="about" className="container min-h-screen">
+    <section id="about" className="container min-h-screen mb-20">
       {/* Header Section */}
       <motion.div
         initial={{ opacity: 0, y: 60 }}
@@ -71,7 +71,7 @@ const AboutSection = () => {
             <div className="p-3 rounded-xl glass">
               <FiBriefcase className="w-6 h-6 text-accent" />
             </div>
-            <h3 className="text-2xl font-display font-bold">Experience</h3>
+            <h3 className="text-2xl font-display font-bold">Recent Projects</h3>
           </motion.div>
 
           <div className="space-y-6">

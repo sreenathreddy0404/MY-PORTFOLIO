@@ -1,14 +1,7 @@
 import { motion } from 'framer-motion';
-import { socialLinks,IconType } from '@/constants/data';
+import { socialLinks } from '@/constants/data';
 import { FiHeart, FiArrowUp } from 'react-icons/fi';
 
-interface SocialLinkType{
-  name:string,
-  href:string,
-  url:string,
-  color:string,
-  icon:IconType
-}
 const Footer = () => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -39,7 +32,7 @@ const Footer = () => {
             transition={{ delay: 0.1 }}
             className="flex items-center gap-4"
           >
-            {socialLinks.map((link:SocialLinkType) => (
+            {socialLinks.map((link) => (
               <motion.a
                 key={link.name}
                 href={link.url}
@@ -50,7 +43,7 @@ const Footer = () => {
                 whileTap={{ scale: 0.95 }}
                 aria-label={link.name}
               >
-                <link.icon className="w-5 h-5" style={{ color: link.color }} />
+                <link.icon className={`w-5 h-5 ${link.animation}`} style={{ color: link.color }} />
               </motion.a>
             ))}
           </motion.div>

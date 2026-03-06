@@ -1,20 +1,13 @@
-import { motion, AnimatePresence ,Variants} from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { projects } from '@/constants/data';
-import { GradientText } from '@/components/animations/AnimatedText';
-import { FiExternalLink, FiGithub } from 'react-icons/fi';
+import { FiArrowRight, FiExternalLink, FiGithub } from 'react-icons/fi';
 
-const allTechs = Array.from(
-  new Set(projects.flatMap((p) => p.tech))
-);
+// Create a motion-enhanced Link
+const MotionLink = motion(Link);
 
 const ProjectsSection = () => {
-  const [filter, setFilter] = useState<string | null>(null);
-
-  const filteredProjects = filter
-    ? projects.filter((p) => p.tech.includes(filter))
-    : projects;
-
   // Animation variants for staggered cards
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -32,7 +25,7 @@ const ProjectsSection = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5, ease: "easeOut" },
+      transition: { duration: 0.5, ease: 'easeOut' },
     },
   };
 
@@ -42,83 +35,56 @@ const ProjectsSection = () => {
       <motion.div
         initial={{ opacity: 0, y: 60 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
+        viewport={{ once: true, margin: '-100px' }}
         transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
         className="text-center mb-16"
       >
         <span className="text-sm font-mono text-primary mb-4 block">// MY WORK</span>
         <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
-          Featured <GradientText>Projects</GradientText>
+          Featured <span className='gradient-text'>Projects</span>
         </h2>
         <p className="text-muted-foreground max-w-2xl mx-auto">
           A selection of projects that showcase my skills and passion for development
         </p>
       </motion.div>
 
-      {/* Filter Tags Container */}
+      {/* Projects Grid */}
       <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.7, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
-        className="flex flex-wrap justify-center gap-3 mb-12"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-50px' }}
+        className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto"
       >
-        <motion.button
-          onClick={() => setFilter(null)}
-          className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-            filter === null
-              ? 'bg-gradient-to-r from-primary to-accent text-white'
-              : 'glass hover:shadow-lg'
-          }`}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          All
-        </motion.button>
-        {allTechs.slice(0, 6).map((tech, index) => (
-          <motion.button
-            key={tech}
-            onClick={() => setFilter(tech)}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-              filter === tech
-                ? 'bg-gradient-to-r from-primary to-accent text-white'
-                : 'glass hover:shadow-lg'
-            }`}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 + index * 0.05 }}
-          >
-            {tech}
-          </motion.button>
+        {projects.map((project) => (
+          <motion.div key={project.id} variants={itemVariants}>
+            <ProjectCard project={project} />
+          </motion.div>
         ))}
       </motion.div>
 
-      {/* Projects Grid with Filter Transition */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={filter || 'all'}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.3 }}
+      {/* View More Button */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, delay: 0.3 }}
+        className="flex justify-center mt-12"
+      >
+        <MotionLink
+          to="/projects"
+          className="group relative px-8 py-4 rounded-full font-medium overflow-hidden"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
         >
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto"
-          >
-            {filteredProjects.map((project) => (
-              <motion.div key={project.id} variants={itemVariants}>
-                <ProjectCard project={project} />
-              </motion.div>
-            ))}
-          </motion.div>
-        </motion.div>
-      </AnimatePresence>
+          <span className="absolute inset-0 bg-gradient-to-r from-gradient-start via-gradient-mid to-gradient-end opacity-100 transition-opacity" />
+          <span className="absolute inset-0 bg-gradient-to-r from-gradient-end via-gradient-mid to-gradient-start opacity-0 group-hover:opacity-100 transition-opacity" />
+          <span className="relative flex items-center gap-2 text-white glow">
+              View All Projects
+            <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
+          </span>
+        </MotionLink>
+      </motion.div>
     </section>
   );
 };
@@ -138,7 +104,7 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
       style={{ perspective: 1000 }}
     >
       {/* Image */}
-      <div className="relative h-56 overflow-hidden">
+      <div className="relative h-56 overflow-hidden rounded-t-2xl">
         <motion.img
           src={project.image}
           alt={project.title}
@@ -147,7 +113,7 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
           transition={{ duration: 0.5 }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent" />
-        
+
         {/* Featured Badge */}
         {project.featured && (
           <motion.span
@@ -160,7 +126,7 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
           </motion.span>
         )}
 
-        {/* Links Overlay */}
+        {/* Hover Overlay Links (still nice on desktop) */}
         <motion.div
           className="absolute inset-0 flex items-center justify-center gap-4 bg-background/80 backdrop-blur-sm"
           initial={{ opacity: 0 }}
@@ -198,7 +164,7 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
         </p>
 
         {/* Tech Stack */}
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 mb-4">
           {project.tech.map((tech) => (
             <span
               key={tech}
@@ -207,6 +173,28 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
               {tech}
             </span>
           ))}
+        </div>
+
+        {/* Always‑visible Links for Mobile */}
+        <div className="flex items-center gap-4 pt-2 border-t border-border">
+          <a
+            href={project.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1 text-sm text-primary hover:underline"
+          >
+            <FiExternalLink className="w-4 h-4" />
+            Live
+          </a>
+          <a
+            href={project.githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
+          >
+            <FiGithub className="w-4 h-4" />
+            Code
+          </a>
         </div>
       </div>
     </motion.div>

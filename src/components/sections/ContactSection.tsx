@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { personalInfo, socialLinks } from '@/constants/data';
 import { FiMail, FiMapPin, FiSend, FiCheck, FiCopy } from 'react-icons/fi';
+import emailjs from '@emailjs/browser';
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
@@ -9,19 +10,53 @@ const ContactSection = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    
-    setIsSubmitting(false);
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  // Basic validation
+  if (!formData.name.trim()) {
+    alert("Please enter your name");
+    return;
+  }
+
+  if (!formData.email.trim()) {
+    alert("Please enter your email");
+    return;
+  }
+
+  if (!/\S+@\S+\.\S+/.test(formData.email)) {
+    alert("Please enter a valid email address");
+    return;
+  }
+
+  if (!formData.message.trim()) {
+    alert("Please enter your message");
+    return;
+  }
+
+  setIsSubmitting(true);
+
+  try {
+    await emailjs.send(
+      import.meta.env.VITE_EMAILJS_SERVICE_ID,
+      import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+      {
+        name: formData.name,
+        email: formData.email,
+        message: formData.message,
+      },
+      import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+    );
+
     setIsSubmitted(true);
-    setFormData({ name: '', email: '', message: '' });
-    
-    setTimeout(() => setIsSubmitted(false), 3000);
-  };
+    setFormData({ name: "", email: "", message: "" });
+  } catch (error) {
+    console.error("Email failed:", error);
+  }
+
+  setIsSubmitting(false);
+  setTimeout(() => setIsSubmitted(false), 3000);
+};
 
   const copyEmail = async () => {
     await navigator.clipboard.writeText(personalInfo.email);
@@ -35,7 +70,7 @@ const ContactSection = () => {
       <motion.div
         initial={{ opacity: 0, y: 60 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
+        viewport={{ once: false, margin: "-100px" }}
         transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
         className="text-center mb-16"
       >
@@ -53,7 +88,7 @@ const ContactSection = () => {
         <motion.div
           initial={{ opacity: 0, x: 60 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: false, margin: "-100px" }}
           transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
           className="space-y-8"
         >
@@ -64,11 +99,12 @@ const ContactSection = () => {
               {/* Email */}
               <motion.div
                 className="flex items-center gap-4 group cursor-pointer"
+                viewport={{once:false}}
                 onClick={copyEmail}
                 whileHover={{ x: 5 }}
               >
                 <div className="p-3 rounded-xl glass group-hover:shadow-glow transition-all">
-                  <FiMail className="w-5 h-5 text-primary" />
+                  <FiMail className="w-5 h-5 text-primary animate-shake" />
                 </div>
                 <div className="flex-1">
                   <p className="text-sm text-muted-foreground">Email</p>
@@ -77,6 +113,7 @@ const ContactSection = () => {
                 <motion.div
                   initial={{ scale: 0 }}
                   animate={{ scale: copied ? 1 : 0 }}
+                  viewport={{once:false}}
                   className="text-accent"
                 >
                   <FiCheck className="w-5 h-5" />
@@ -84,6 +121,7 @@ const ContactSection = () => {
                 <motion.div
                   initial={{ scale: 1 }}
                   animate={{ scale: copied ? 0 : 1 }}
+                  viewport={{once:false}}
                   className="text-muted-foreground"
                 >
                   <FiCopy className="w-5 h-5" />
@@ -93,7 +131,7 @@ const ContactSection = () => {
               {/* Location */}
               <motion.div className="flex items-center gap-4" whileHover={{ x: 5 }}>
                 <div className="p-3 rounded-xl glass">
-                  <FiMapPin className="w-5 h-5 text-accent" />
+                  <FiMapPin className="w-5 h-5 text-accent animate-bounce" />
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Location</p>
@@ -112,18 +150,18 @@ const ContactSection = () => {
                   key={link.name}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
+                  viewport={{ once: false }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                 >
                   <motion.a
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-4 rounded-xl glass flex items-center justify-center hover:shadow-glow transition-all"
+                    className="w-15 h-15 rounded-full glass flex items-center justify-center glow transition-all"
                     whileHover={{ scale: 1.1, y: -5 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    <link.icon className="w-6 h-6" style={{ color: link.color }} />
+                    <link.icon className={`w-6 h-6 ${link.animation}`} style={{ color: link.color }} />
                   </motion.a>
                 </motion.div>
               ))}
@@ -135,7 +173,7 @@ const ContactSection = () => {
         <motion.div
           initial={{ opacity: 0, x: -60 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: false, margin: "-100px" }}
           transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
         >
           <motion.form
@@ -200,11 +238,12 @@ const ContactSection = () => {
               <motion.button
                 type="submit"
                 disabled={isSubmitting || isSubmitted}
-                className="w-full py-4 rounded-xl font-medium relative overflow-hidden disabled:opacity-70"
+                className="group w-full py-4 rounded-xl font-medium relative overflow-hidden disabled:opacity-70"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
                 <span className="absolute inset-0 bg-gradient-to-r from-primary via-accent to-gradient-end" />
+                <span className="absolute inset-0 bg-gradient-to-r from-gradient-end via-gradient-mid to-gradient-start opacity-0 group-hover:opacity-100 transition-opacity" />
                 <span className="relative flex items-center justify-center gap-2 text-white">
                   {isSubmitting ? (
                     <motion.div

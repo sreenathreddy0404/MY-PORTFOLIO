@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { skills } from '@/constants/data';
 import { GradientText } from '@/components/animations/AnimatedText';
 
-type SkillCategory = 'frontend' | 'backend' | 'tools';
+type SkillCategory = 'frontend' | 'backend' | 'tools' | 'languages';
 
 const SkillsSection = () => {
   const [activeCategory, setActiveCategory] = useState<SkillCategory>('frontend');
@@ -12,6 +12,7 @@ const SkillsSection = () => {
     { key: 'frontend', label: 'Frontend' },
     { key: 'backend', label: 'Backend' },
     { key: 'tools', label: 'Tools' },
+    { key: 'languages', label: 'Languages' },
   ];
 
   return (
@@ -45,7 +46,7 @@ const SkillsSection = () => {
           <motion.button
             key={category.key}
             onClick={() => setActiveCategory(category.key)}
-            className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${
+            className={`px-4 py-2 text-sm md:px-6 md:py-3 md:text-md rounded-full md:font-medium transition-all duration-300 ${
               activeCategory === category.key
                 ? 'bg-gradient-to-r from-primary to-accent text-white shadow-glow'
                 : 'glass hover:shadow-lg'

@@ -4,7 +4,7 @@ import { personalInfo, orbitIcons } from '@/constants/data';
 import { AnimatedLetters, GradientText } from '@/components/animations/AnimatedText';
 import { useState, useEffect } from 'react';
 
-const roles = ['Full Stack Developer', 'React Specialist', 'UI/UX Enthusiast', 'Problem Solver'];
+const roles = ['Full Stack Developer', 'Problem Solver', 'AI Enthusiast', 'Tech Explorer'];
 
 const HeroSection = () => {
   const [roleIndex, setRoleIndex] = useState(0);
@@ -34,7 +34,7 @@ const HeroSection = () => {
   }, [displayText, isDeleting, roleIndex]);
 
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
+    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 mb-20">
       {/* Background Orbs */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
@@ -44,7 +44,7 @@ const HeroSection = () => {
           }}
           animate={{
             scale: [1, 1.2, 1],
-            opacity: [0.1, 0.2, 0.1],
+            opacity: [0.1, 0.4, 0.1],
             x : [0,40,0],
             y : [0,20,0]
           }}
@@ -61,7 +61,7 @@ const HeroSection = () => {
           }}
           animate={{
             scale: [1.2, 1, 1.2],
-            opacity: [0.1, 0.2, 0.1],
+            opacity: [0.1, 0.4, 0.1],
             x : [0,-40,0],
             y : [0,20,0]
           }}
@@ -78,7 +78,7 @@ const HeroSection = () => {
           }}
           animate={{
             scale: [1, 1.3, 1],
-            opacity: [0.1, 0.2, 0.1],
+            opacity: [0.1, 0.4, 0.1],
             x : [0,40,0],
             y : [0,-20,0]
           }}
@@ -184,7 +184,7 @@ const HeroSection = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="relative flex items-center justify-center"
           >
-            <div className="relative w-120 h-120 md:w-96 md:h-96">
+            <div className="relative w-96 h-96">
               {/* Orbiting Icons */}
               <div className="absolute inset-0 animate-rotate-slow">
                 {orbitIcons.map((item, index:number) => (
@@ -194,9 +194,8 @@ const HeroSection = () => {
                     style={{
                       left: '50%',
                       top: '50%',
-                      transform: `rotate(${index * 60}deg) translateX(160px) rotate(-${index * 60}deg)`,
+                      transform: `rotate(${index * 60}deg) translateX(180px) rotate(-${index * 90}deg)`,
                     }}
-                    whileHover={{ scale: 1.2 }}
                   >
                     <item.icon className="w-6 h-6" style={{ color: item.color }} />
                   </motion.div>
@@ -216,10 +215,10 @@ const HeroSection = () => {
 
               {/* Glowing Ring */}
               <motion.div
-                className="absolute inset-4 rounded-full border-2 border-primary/30"
+                className="absolute inset-4 rounded-full border-3 border-primary/30"
               />
               <motion.div
-                className="absolute inset-2 rounded-full border border-accent/20"
+                className="absolute inset-2 rounded-full border-3 border-accent/20"
               />
             </div>
           </motion.div>
