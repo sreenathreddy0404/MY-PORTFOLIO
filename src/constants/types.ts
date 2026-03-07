@@ -55,6 +55,7 @@ export interface Project {
   liveUrl: string;
   githubUrl: string;
   featured: boolean;
+  status : boolean;
 }
 
 // Education
@@ -92,6 +93,7 @@ export interface AllProjects {
   liveUrl: string;
   githubUrl: string;
   featured: boolean;
+  status : boolean;
 }
 
 // Certificate type

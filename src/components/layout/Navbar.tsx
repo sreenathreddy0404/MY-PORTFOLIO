@@ -167,7 +167,7 @@ const Navbar = () => {
               transition={{ duration: 0.3 }}
               className="md:hidden overflow-hidden"
             >
-              <div className="container mx-auto px-6 py-6 flex flex-col gap-4">
+              <div className="container glass-strong mx-auto px-6 py-6 flex flex-col gap-4">
                 {navLinks.map((link:{name:string,href:string}, index:number) => (
                   <motion.a
                     key={link.name}
@@ -188,6 +188,15 @@ const Navbar = () => {
                     {link.name}
                   </motion.a>
                 ))}
+                <motion.a
+                  onClick={()=>navigate('/certificates')}
+                  className={`text-lg font-medium py-2 transition-colors text-muted-foreground hover:text-foreground`}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: navLinks.length * 0.1 }}
+                >
+                  certificates
+                </motion.a>
               </div>
             </motion.div>
           )}

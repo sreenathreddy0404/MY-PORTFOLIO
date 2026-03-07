@@ -3,11 +3,15 @@ import { certificates } from "@/constants/data";
 import { FiExternalLink } from "react-icons/fi";
 import NavbarNew from "@/components/layout/NavbarNew";
 import Footer from "@/components/layout/Footer";
+import { useEffect } from "react";
 
 const CertificatesPage = () => {
 
   const featured = certificates.filter((c) => c.featured);
   const others = certificates.filter((c) => !c.featured);
+  useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
@@ -33,7 +37,7 @@ const CertificatesPage = () => {
         </section>
 
         {/* FEATURED CERTIFICATES */}
-        <section className="max-w-6xl mx-auto px-6 mt-16 space-y-16">
+        <section className="max-w-6xl mx-auto px-6 my-16 space-y-16">
           {featured.map((cert, index) => {
 
             const reverse = index % 2 !== 0;
@@ -115,7 +119,8 @@ const CertificatesPage = () => {
         </section>
 
         {/* ALL CERTIFICATES GRID */}
-        <section className="max-w-6xl mx-auto px-6 mt-24 pb-20">
+        {others.length > 0 && (
+          <section className="max-w-6xl mx-auto px-6 mt-24 pb-20">
 
           <h2 className="text-2xl font-bold mb-10">
             All Certifications
@@ -162,7 +167,7 @@ const CertificatesPage = () => {
 
           </div>
         </section>
-
+        )}
       </div>
       <Footer />
     </div>

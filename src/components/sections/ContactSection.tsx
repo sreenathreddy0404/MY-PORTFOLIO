@@ -83,14 +83,14 @@ const handleSubmit = async (e: React.FormEvent) => {
         </p>
       </motion.div>
 
-      <div className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
+      <div className="lg:grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
         {/* Contact Info */}
         <motion.div
           initial={{ opacity: 0, x: 60 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: false, margin: "-100px" }}
           transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
-          className="space-y-8"
+          className="space-y-8 mb-8"
         >
           <div className="glass rounded-2xl p-8">
             <h3 className="text-2xl font-display font-bold mb-6">Contact Information</h3>

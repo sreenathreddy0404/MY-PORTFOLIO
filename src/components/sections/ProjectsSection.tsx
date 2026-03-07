@@ -1,13 +1,13 @@
 import { motion, Variants } from 'framer-motion';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { projects } from '@/constants/data';
 import { FiArrowRight, FiExternalLink, FiGithub } from 'react-icons/fi';
 
-// Create a motion-enhanced Link
-const MotionLink = motion(Link);
 
 const ProjectsSection = () => {
+  const navigate = useNavigate();
+  
   // Animation variants for staggered cards
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -71,8 +71,8 @@ const ProjectsSection = () => {
         transition={{ duration: 0.5, delay: 0.3 }}
         className="flex justify-center mt-12"
       >
-        <MotionLink
-          to="/projects"
+        <motion.button
+          onClick={() => navigate('/projects')}
           className="group relative px-8 py-4 rounded-full font-medium overflow-hidden"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
@@ -83,7 +83,7 @@ const ProjectsSection = () => {
               View All Projects
             <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
           </span>
-        </MotionLink>
+        </motion.button>
       </motion.div>
     </section>
   );
@@ -103,8 +103,26 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
       onHoverEnd={() => setIsHovered(false)}
       style={{ perspective: 1000 }}
     >
+      <div className="px-6 py-4">
+        <motion.span
+          className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium text-green-900 glass"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.2 }}
+        >
+          <span
+            className={`${project.status?"w-2 h-2":"animate-ping w-1 h-1"} rounded-full ${
+              project.status ? "bg-green-500" : "bg-yellow-400"
+            }`}
+          />
+          <span className={`${project.status ? "text-green-500" : "text-yellow-400"}`}>
+            {project.status ? "Completed" : "In Progress"}
+          </span>
+        </motion.span>
+      </div>
+
       {/* Image */}
-      <div className="relative h-56 overflow-hidden rounded-t-2xl">
+      <div className="relative h-56 overflow-hidden">
         <motion.img
           src={project.image}
           alt={project.title}
@@ -112,37 +130,27 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
           animate={{ scale: isHovered ? 1.1 : 1 }}
           transition={{ duration: 0.5 }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-card via-card/10 via-transparent to-transparent" />
 
-        {/* Featured Badge */}
-        {project.featured && (
-          <motion.span
-            className="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-primary to-accent text-white"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2 }}
-          >
-            Featured
-          </motion.span>
-        )}
-
-        {/* Hover Overlay Links (still nice on desktop) */}
+        {/* Hover overlay links (desktop) */}
         <motion.div
           className="absolute inset-0 flex items-center justify-center gap-4 bg-background/80 backdrop-blur-sm"
           initial={{ opacity: 0 }}
           animate={{ opacity: isHovered ? 1 : 0 }}
           transition={{ duration: 0.3 }}
         >
-          <motion.a
-            href={project.liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-4 rounded-full glass hover:shadow-glow transition-all"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <FiExternalLink className="w-6 h-6" />
-          </motion.a>
+          {project.liveUrl && (
+            <motion.a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-4 rounded-full glass hover:shadow-glow transition-all"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <FiExternalLink className="w-6 h-6" />
+            </motion.a>
+          )}
           <motion.a
             href={project.githubUrl}
             target="_blank"
@@ -156,7 +164,6 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
         </motion.div>
       </div>
 
-      {/* Content */}
       <div className="p-6">
         <h3 className="text-xl font-display font-bold mb-2">{project.title}</h3>
         <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
@@ -175,17 +182,19 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
           ))}
         </div>
 
-        {/* Always‑visible Links for Mobile */}
+        {/* Always‑visible links for mobile */}
         <div className="flex items-center gap-4 pt-2 border-t border-border">
-          <a
-            href={project.liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1 text-sm text-primary hover:underline"
-          >
+          {project.liveUrl && (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1 text-sm text-primary hover:underline"
+            >
             <FiExternalLink className="w-4 h-4" />
             Live
           </a>
+          )}
           <a
             href={project.githubUrl}
             target="_blank"

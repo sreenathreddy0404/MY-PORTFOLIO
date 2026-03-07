@@ -51,24 +51,24 @@ const NavbarNew = () => {
     
             {/* Desktop Navigation */}
             
-                <motion.a
-                    onClick={(e) => navigate('/')}
-                    className="nav-link"
-                    whileHover={{ y: -2 }}
-                    whileTap={{ y: 0 }}
-                >
-                    Home
-                </motion.a>
+            <motion.a
+                onClick={(e) => navigate('/')}
+                className="nav-link"
+                whileHover={{ y: -2 }}
+                whileTap={{ y: 0 }}
+            >
+                Home
+            </motion.a>
     
             <div className="flex items-center gap-4">
-                {/* Theme Toggle */}
-                <motion.button
-                onClick={toggleTheme}
-                className="relative p-3 rounded-full glass hover:shadow-glow transition-all duration-300"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                aria-label="Toggle theme"
-                >
+              {/* Theme Toggle */}
+              <motion.button
+              onClick={toggleTheme}
+              className="relative p-3 rounded-full glass hover:shadow-glow transition-all duration-300"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              aria-label="Toggle theme"
+              >
                 <AnimatePresence mode="wait">
                     <motion.div
                     key={theme}
@@ -84,7 +84,7 @@ const NavbarNew = () => {
                     )}
                     </motion.div>
                 </AnimatePresence>
-                </motion.button>
+              </motion.button>
             </div>
         </nav>
       </motion.header>

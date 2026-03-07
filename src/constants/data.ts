@@ -68,9 +68,10 @@ export const projects: Project[] = [
     description: "A hyperlocal agricultural marketplace connecting farmers and buyers with real-time product listings, secure Stripe payments, and location-based discovery.",
     image: "https://ik.imagekit.io/h4y6qwy6j/kissan_konnect.png",
     tech: ["MongoDB", "Express.js", "React", "Node.js", "Tailwind CSS", "Stripe"],
-    liveUrl: "https://example.com",
+    liveUrl: "",
     githubUrl: "https://github.com/sreenathreddy0404/KISSAN-KONNECT",
     featured: true,
+    status : false,
   },
   {
     id: 2,
@@ -81,6 +82,7 @@ export const projects: Project[] = [
     liveUrl: "https://fam-budget-3xsp.vercel.app/",
     githubUrl: "https://github.com/sreenathreddy0404/FAM-BUDGET",
     featured: true,
+    status : true,
   },
   {
     id: 3,
@@ -88,9 +90,10 @@ export const projects: Project[] = [
     description: "A modern developer portfolio showcasing my projects, technical skills, and achievements with smooth animations and responsive design.",
     image: "https://ik.imagekit.io/h4y6qwy6j/portfolio-image.png?tr=c-force,w-800,h-450",
     tech: ["TypeScript", "React", "Tailwind", "Framer Motion"],
-    liveUrl: "https://example.com",
+    liveUrl: "https://sreenathreddyannareddy-portfolio.vercel.app",
     githubUrl: "https://github.com/sreenathreddy0404/MY-PORTFOLIO",
     featured: false,
+    status : true,
   },
   {
     id: 4,
@@ -101,6 +104,7 @@ export const projects: Project[] = [
     liveUrl: "https://todo-app-ruby-five-11.vercel.app/login",
     githubUrl: "https://github.com/SREENATHREDDY1234/todo-app",
     featured: true,
+    status : true,
   },
 ];
 
@@ -157,9 +161,10 @@ export const allProjects: AllProjects[] = [
     description: "A hyperlocal agricultural marketplace connecting farmers and buyers with real-time product listings, secure Stripe payments, and location-based discovery.",
     image: "https://ik.imagekit.io/h4y6qwy6j/kissan_konnect.png",
     tech: ["MongoDB", "Express.js", "React", "Node.js", "Tailwind CSS", "Stripe"],
-    liveUrl: "https://example.com",
+    liveUrl: "",
     githubUrl: "https://github.com/sreenathreddy0404/KISSAN-KONNECT",
     featured: true,
+    status : false,
   },
   {
     id: 2,
@@ -171,6 +176,7 @@ export const allProjects: AllProjects[] = [
     liveUrl: "https://fam-budget-3xsp.vercel.app/",
     githubUrl: "https://github.com/sreenathreddy0404/FAM-BUDGET",
     featured: true,
+    status : true,
   },
   {
     id: 3,
@@ -179,9 +185,10 @@ export const allProjects: AllProjects[] = [
     description: "A modern developer portfolio showcasing my projects, technical skills, and achievements with smooth animations and responsive design.",
     image: "https://ik.imagekit.io/h4y6qwy6j/portfolio-image.png?tr=c-force,w-800,h-450",
     tech: ["TypeScript", "React", "Tailwind", "Framer Motion"],
-    liveUrl: "https://example.com",
+    liveUrl: "https://sreenathreddyannareddy-portfolio.vercel.app",
     githubUrl: "https://github.com/sreenathreddy0404/MY-PORTFOLIO",
     featured: true,
+    status : true,
   },
   {
     id: 4,
@@ -193,6 +200,7 @@ export const allProjects: AllProjects[] = [
     liveUrl: "https://todo-app-ruby-five-11.vercel.app/login",
     githubUrl: "https://github.com/SREENATHREDDY1234/todo-app",
     featured: true,
+    status : true,
   },
   {
     id: 5,
@@ -204,6 +212,7 @@ export const allProjects: AllProjects[] = [
     liveUrl: "https://netflix-clone-seven-rust.vercel.app/",
     githubUrl: "https://github.com/sreenathreddy0404/netflix-clone",
     featured: true,
+    status : true,
   },
   {
     id: 6,
@@ -215,6 +224,7 @@ export const allProjects: AllProjects[] = [
     liveUrl: "https://youtube-clone-gray-one.vercel.app/",
     githubUrl: "https://github.com/sreenathreddy0404/youtube-clone.git",
     featured: false,
+    status : true,
   },
   {
     id: 7,
@@ -226,6 +236,7 @@ export const allProjects: AllProjects[] = [
     liveUrl: "https://sreenathreddy0404.github.io/javascript-mini-projects-showcase/",
     githubUrl: "https://github.com/sreenathreddy0404/javascript-mini-projects-showcase",
     featured: false,
+    status : true,
   },
   {
     id: 8,
@@ -237,6 +248,7 @@ export const allProjects: AllProjects[] = [
     liveUrl: "",
     githubUrl: "https://github.com/sreenathreddy0404/javascript-projects",
     featured: false,
+    status : true,
   },
 ];
 
@@ -254,6 +266,6 @@ export const certificates: Certificate[] = [
       "Internet Protocols",
       "TCP/IP",
     ],
-    featured: true
+    featured: true,
   },
 ];
