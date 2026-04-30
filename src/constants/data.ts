@@ -12,7 +12,8 @@ export const personalInfo: PersonalInfo = {
   email: "sreenathreddy0404@gmail.com",
   location: "paruluniversity, gujarat",
   bio: "I'm a CSE (AI) student who loves turning ideas into full-stack applications. With 650+ LeetCode problems solved and hands-on MERN projects, I’m constantly sharpening my problem-solving skills and exploring AI-driven solutions.",
-  resumeUrl: "/resume.pdf",
+  resumeUrl: "https://drive.google.com/file/d/1di48kBJp_WKYpkuEZa_UEtj4s_5OPbSL/view?usp=sharing",
+  leetcodeUrl: "https://leetcode.com/u/annareddysreenathreddy/",
   avatarUrl: "https://image2url.com/r2/default/images/1770977219958-7484df63-e3bb-499c-a57c-3a11f1f427cf.jpeg?tr=c-force,w-700,h-700",
 };
 

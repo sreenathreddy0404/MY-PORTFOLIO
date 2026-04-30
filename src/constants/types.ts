@@ -11,6 +11,7 @@ export interface PersonalInfo {
   location: string;
   bio: string;
   resumeUrl: string;
+  leetcodeUrl: string;
   avatarUrl: string;
 }
 

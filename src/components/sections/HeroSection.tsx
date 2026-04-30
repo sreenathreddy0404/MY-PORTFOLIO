@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { FiDownload, FiSend } from 'react-icons/fi';
+import { FiFileText, FiSend } from 'react-icons/fi';
 import { personalInfo, orbitIcons } from '@/constants/data';
 import { AnimatedLetters, GradientText } from '@/components/animations/AnimatedText';
 import { useState, useEffect } from 'react';
@@ -164,14 +164,27 @@ const HeroSection = () => {
 
               <motion.a
                 href={personalInfo.resumeUrl}
-                download
+                target="_blank"
                 className="group px-8 py-4 rounded-full font-medium glass border-2 border-transparent hover:border-primary glow shadow-lg transition-all duration-300"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <span className="flex items-center gap-2">
-                  <FiDownload className="group-hover:animate-bounce" />
-                  Download CV
+                  <FiFileText className="group-hover:animate-bounce" />
+                  View Resume
+                </span>
+              </motion.a>
+
+              <motion.a
+                href={personalInfo.leetcodeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group px-8 py-4 rounded-full font-medium glass border-2 border-transparent hover:border-[#FFA116] glow shadow-lg transition-all duration-300"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span className="flex items-center gap-2">
+                  View LeetCode
                 </span>
               </motion.a>
             </motion.div>
